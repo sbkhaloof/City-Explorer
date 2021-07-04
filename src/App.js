@@ -1,7 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button,Form,Card} from 'react-bootstrap';
+import {Button,Form,Card,Image} from 'react-bootstrap';
 import axios from 'axios';
+import './App.css';
+
 
 class App extends React.Component {
   constructor(props){
@@ -33,8 +35,9 @@ this.setState({
   render(){
   return(
 <>
-  <h1>
+  <h1 >
     City Explorer
+    
   </h1>
 
   <Form onSubmit={this.getCityName}>
@@ -47,6 +50,7 @@ this.setState({
   </Form>
  <br/>
  <br/>
+ 
  <Card style={{ width: '18rem' }}>
   <Card.Body>
     <Card.Title>City Data</Card.Title>
@@ -58,6 +62,9 @@ this.setState({
     
   </Card.Body>
 </Card>
+<br/>
+<br/>
+<Image src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.cityInfo.lat},${this.state.cityInfo.lon}&zoom=15`}  rounded /> 
  </>
   );
 }}
