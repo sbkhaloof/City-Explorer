@@ -10,20 +10,23 @@ class App extends React.Component {
     super(props);
       this.state={
         cityInfo:{},
-        findQuery:''
+        findQuery:'',
+        showMap:false
       }
     }
     getCityName =async(event)=>{
       event.preventDefault();
       await this.setState({
         findQuery:event.target.city.value
+
       })
 
 let url=`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.findQuery}&format=json`;
 let respData=await axios.get(url);
 console.log(respData)
 this.setState({
-  cityInfo:respData.data[0]
+  cityInfo:respData.data[0],
+  showMap:true
 })
 
 }
@@ -64,7 +67,9 @@ this.setState({
 </Card>
 <br/>
 <br/>
-<Image src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.cityInfo.lat},${this.state.cityInfo.lon}&zoom=15`}  rounded /> 
+{this.state.showMap&&
+<Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.3fb65df48ea9b1418d02d4dc6b9a89f1
+&center=${this.state.cityInfo.lat},${this.state.cityInfo.lon}&zoom=15`}  rounded /> }
  </>
   );
 }}
