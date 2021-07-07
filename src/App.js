@@ -14,15 +14,16 @@ class App extends React.Component {
       findQuery: '',
       showMap: false,
       weatherArr: [],
-      lon: '',
-      lat: '',
-      showWeather: false
+      showWeather: false,
+      showError:false
     }
   }
+  // this fun for location 
   getCityName = async (event) => {
     event.preventDefault();
     await this.setState({
-      findQuery: event.target.city.value
+      findQuery: event.target.city.value,
+      
 
     })
 
@@ -31,23 +32,25 @@ class App extends React.Component {
     console.log(respData)
     this.setState({
       cityInfo: respData.data[0],
-      showMap: true,
-      // lon: respData.data[0].lon,
-      // lat: respData.data[0].lat
+      showMap: true 
     })
     this.getWeatherData();
   }
-
+// this part for the weather
   getWeatherData = async () => {
 
     let city = this.state.findQuery.charAt(0).toUpperCase() + this.state.findQuery.slice(1);
+    
     console.log(city)
-    let weatherUrl = `http://localhost:3008/weather?cityName=${city}&format=json`
-    console.log(weatherUrl.data)
-    let weather = await axios.get(weatherUrl, { params: { serchquery: this.state.findQuery } });
-    this.setState({
+   
+     let weatherUrl = `http://localhost:3008/getWeatherInfo?cityName=${city}&format=json`;
+    console.log(weatherUrl)
+    let weather = await axios.get(weatherUrl);
+    // { params: { serchquery: this.state.findQuery } }
+    await this.setState({
       weatherArr: weather.data,
-      showWeather: true
+      showWeather: true,
+      
 
     })
     { console.log(this.state.weatherArr, 'in fun') }
