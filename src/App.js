@@ -11,11 +11,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cityInfo: {},
-      findQuery: '',
-      showMap: false,
+      cityInfo:{},
+      findQuery:'',
+      showMap:false,
       weatherArr: [],
-      showWeather: false,
+      showWeather:false,
       showError:false,
       showMovie:false,
       movieData:{}
@@ -47,7 +47,7 @@ class App extends React.Component {
     
     console.log(city)
    
-     let weatherUrl = `http://localhost:3008/getWeatherInfo?cityName=${city}&format=json`;
+     let weatherUrl = `https://city-explorer-api-backend.herokuapp.com/getWeatherInfo?cityName=${city}&format=json`;
     console.log(weatherUrl)
     let weather = await axios.get(weatherUrl);
     // { params: { serchquery: this.state.findQuery } }
@@ -63,14 +63,17 @@ class App extends React.Component {
 //this part for movie 
 getMoviesInfo = async ()=>{
   let city = this.state.findQuery.charAt(0).toUpperCase() + this.state.findQuery.slice(1);
-  let movieUrl=`https://localhost:3008/movies?cityName=${city}&format=json`;
+  console.log(city)
+  // let movieUrl=`https://localhost:3008/movies?cityName=${city}&format=json`;
+  let movieUrl=`https://city-explorer-api-backend.herokuapp.com/movies?query=${city}&format=json`;
   console.log(movieUrl);
   let movies=await axios.get(movieUrl);
+  // console.log(movies)
   await this.setState({
     movieData:movies.data,
     showMovie:true
   })
-  {console.log(this.state.movieData,'from app')}
+ 
 }
 
   render() {
@@ -92,7 +95,7 @@ getMoviesInfo = async ()=>{
         <br />
         <br />
 
-        <Card style={{ width: '18rem' ,margin:'100px'}}>
+        <Card style={{ width: '18rem' ,margin:'100px' }}>
           <Card.Body>
             <Card.Title>City Data</Card.Title>
             <Card.Text>
@@ -107,8 +110,9 @@ getMoviesInfo = async ()=>{
           </Card.Body>
         </Card>
         <Weather weatherArr={this.state.weatherArr} showWeather={this.state.showWeather} cityInfo={this.state.cityInfo} getWeatherData={this.getWeatherData} />
-     {console.log(this.state.movieData)}
-      <Movie  movieData={this.state.movieData} showMovie={this.state.showMovie} getMoviesInfo={this.getMoviesInfo} />
+    
+      <Movie movieData={this.state.movieData} showMovie={this.state.showMovie} getMoviesInfo={this.getMoviesInfo} />
+      {console.log(this.state.movieData)}
       </>
     );
   }

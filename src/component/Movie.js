@@ -8,6 +8,7 @@ class Movie extends React.Component {
 
                 {console.log(this.props.movieData, 'array from wmovie')}
                 {this.props.showMovie &&
+                
                     <Card style={{ width: '20rem', backgroundColor: '#b0ceff', boxShadow: '2px 2px 2px black', margin: '100px' }} >
 
                         <Card.Body>
@@ -17,30 +18,33 @@ class Movie extends React.Component {
                             {this.props.movieData.map((movie, index) => {
                                 return (
                                     <div key={index}>
-                                        <Image src={movie.image_url} alt={movie.title}/>
+                                        <Image src={movie.image_url} alt={movie.title} style={{width:'17rem'}}/>
                                         <Card.Text>
-                                            {movie.title} 
+                                         title: {movie.title} 
                                         </Card.Text>
                                         <Card.Text>
-                                            {movie.overview} 
+                                           overview: {movie.overview} 
                                         </Card.Text>
                                         <Card.Text>
-                                            {movie.avarge_votes} 
+                                            avarge_votes: {movie.avarge_votes} 
                                         </Card.Text>
                                         <Card.Text>
-                                            {movie.total_votes} 
+                                            total_votes: {movie.total_votes} 
                                         </Card.Text>
                                         <Card.Text>
-                                            {movie.popularity} 
+                                           popularity: {movie.popularity} 
                                         </Card.Text>
                                         <Card.Text>
-                                            {movie.relased_on} 
+                                            relased_on: {movie.relased_on} 
                                         </Card.Text>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
                                     </div>)
                             })}
                         </Card.Body>
                     </Card>
-                }
+                               }
 
             </>
         )
