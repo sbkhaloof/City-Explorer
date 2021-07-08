@@ -18,7 +18,7 @@ class App extends React.Component {
       showWeather:false,
       showError:false,
       showMovie:false,
-      movieData:{}
+      movieData:[]
     }
   }
   // this fun for location 
@@ -109,10 +109,22 @@ getMoviesInfo = async ()=>{
               <Image  style={{width:' 15rem '}} src={`https://maps.locationiq.com/v3/staticmap?key=pk.3fb65df48ea9b1418d02d4dc6b9a89f1&center=${this.state.cityInfo.lat},${this.state.cityInfo.lon}&zoom=15`} rounded />}
           </Card.Body>
         </Card>
-        <Weather weatherArr={this.state.weatherArr} showWeather={this.state.showWeather} cityInfo={this.state.cityInfo} getWeatherData={this.getWeatherData} />
+      <Weather weatherArr={this.state.weatherArr} showWeather={this.state.showWeather} cityInfo={this.state.cityInfo} getWeatherData={this.getWeatherData} />
+    {/* ----------------------to show each movie in card---------------- */}
+    {this.state.movieData.map(movie => {
+          return (
+            <Movie movie={movie} showMovies={true} />
+          )
+
+
+        })}
     
-      <Movie movieData={this.state.movieData} showMovie={this.state.showMovie} getMoviesInfo={this.getMoviesInfo} />
-      {console.log(this.state.movieData)}
+
+
+
+    {console.log(this.state.movieData)}
+      {/* <Movie data={this.state.movieData} showMovie={this.state.showMovie} getMoviesInfo={this.getMoviesInfo} /> */}
+      
       </>
     );
   }
