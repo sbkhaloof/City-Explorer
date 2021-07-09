@@ -14,8 +14,6 @@ class App extends React.Component {
       findQuery: '',
       showMap: false,
       weatherArr: [],
-      lon: '',
-      lat: '',
       showWeather: false
     }
   }
@@ -29,7 +27,7 @@ class App extends React.Component {
     let url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.findQuery}&format=json`;
     let respData = await axios.get(url);
     console.log(respData)
-    this.setState({
+    await this.setState({
       cityInfo: respData.data[0],
       showMap: true,
       // lon: respData.data[0].lon,
@@ -45,7 +43,7 @@ class App extends React.Component {
     let weatherUrl = `http://localhost:3008/weather?cityName=${city}&format=json`
     console.log(weatherUrl.data)
     let weather = await axios.get(weatherUrl, { params: { serchquery: this.state.findQuery } });
-    this.setState({
+    await this.setState({
       weatherArr: weather.data,
       showWeather: true
 
